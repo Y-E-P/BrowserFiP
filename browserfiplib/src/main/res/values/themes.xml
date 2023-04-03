@@ -1,0 +1,6 @@
+<resources>
+
+    <style name="WallSearchView" parent="Widget.AppCompat.SearchView">
+        <item name="colorControlActivated">#A11010</item>
+    </style>
+</resources>

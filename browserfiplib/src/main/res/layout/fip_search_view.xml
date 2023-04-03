@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    tools:parentTag="android.widget.LinearLayout">
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/view_manifest_search_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:iconifiedByDefault="false"
+        android:theme="@style/WallSearchView"
+        app:closeIcon="@null"
+        app:queryBackground="@android:color/transparent"
+        app:queryHint="@string/fip_hint_text"
+        app:searchHintIcon="@null" />
+
+    <TextView
+        android:id="@+id/tv_matches_counter"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:paddingStart="6dp"
+        android:paddingEnd="6dp"
+        android:textSize="16sp"
+        tools:text="0/0" />
+
+    <View
+        android:id="@+id/fip_divider"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        android:background="@color/fip_divider" />
+
+    <ImageButton
+        android:id="@+id/button_previous"
+        android:layout_width="48dp"
+        android:layout_height="match_parent"
+        android:background="?actionBarItemBackground"
+        android:contentDescription="@string/fip_description_previous"
+        app:tint="@color/color_arrow_button_state"
+        tools:srcCompat="@drawable/arrow_down_24" />
+
+    <ImageButton
+        android:id="@+id/button_next"
+        android:layout_width="48dp"
+        android:layout_height="match_parent"
+        android:background="?actionBarItemBackground"
+        android:contentDescription="@string/fip_description_next"
+        app:tint="@color/color_arrow_button_state"
+        tools:srcCompat="@drawable/arrow_up_24" />
+
+    <ImageButton
+        android:id="@+id/button_close"
+        android:layout_width="48dp"
+        android:layout_height="match_parent"
+        android:background="?actionBarItemBackground"
+        android:contentDescription="@string/fip_description_close"
+        app:tint="@color/fip_black"
+        tools:srcCompat="@drawable/ic_close" />
+
+
+</merge>

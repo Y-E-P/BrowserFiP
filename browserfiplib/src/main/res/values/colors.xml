@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="fip_black">#FF000000</color>
+    <color name="fip_active_color">#FF000000</color>
+    <color name="fip_inactive_color">#BDBDBD</color>
+    <color name="fip_background_color">#FFFFFFFF</color>
+    <color name="fip_divider">#BDBDBD</color>
+    <color name="fip_white">#FFFFFFFF</color>
+    <color name="fip_empty_counter_color">#DA3829</color>
+    <color name="fip_matched_counter_color">#FF000000</color>
+</resources>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="FiPSearchView">
+        <attr name="fip_hint" format="string" />
+        <attr name="fip_next_icon" format="reference" />
+        <attr name="fip_previous_icon" format="reference" />
+        <attr name="fip_close_icon" format="reference" />
+        <attr name="fip_background_color" format="color" />
+        <attr name="fip_divider_color" format="color" />
+        <attr name="fip_divider_visible" format="boolean" />
+        <attr name="fip_counter_empty_color" format="color" />
+        <attr name="fip_counter_matched_color" format="color" />
+    </declare-styleable>
+</resources>

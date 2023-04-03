@@ -1,0 +1,7 @@
+<resources>
+    <string name="fip_counter">%d/%d</string>
+    <string name="fip_description_next">Next</string>
+    <string name="fip_description_previous">Previous</string>
+    <string name="fip_description_close">Close</string>
+    <string name="fip_hint_text">Find in Page</string>
+</resources>
