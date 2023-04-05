@@ -45,8 +45,8 @@ afterEvaluate {
             // Creates a Maven publication called "release".
             release(MavenPublication) {
                 from components.release
-                groupId = 'com.github.yupo'
-                artifactId = 'browserfip'
+                groupId = 'om.github.Y-E-P'
+                artifactId = 'BrowserFiP'
                 version = '1.0'
             }
         }
