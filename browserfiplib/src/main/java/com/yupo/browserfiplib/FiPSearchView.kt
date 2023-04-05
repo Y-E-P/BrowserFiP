@@ -170,20 +170,14 @@ class FiPSearchView @JvmOverloads constructor(
     }
 
     /**
-     * Method clear callback and WebView, call
+     * Method performs cleaning callbacks and WebView, call
      * @see setupSearchComponent to setup widget again
      * Also method automatically called in onDetachedFromWindow() method
      */
-    private fun reset() {
+    fun release() {
         this.onNavigationClicked = {}
         this.searchView.setOnQueryTextListener(null)
         this.webView = null
-    }
-
-
-    override fun onDetachedFromWindow() {
-        super.onDetachedFromWindow()
-        reset()
     }
 
     private fun errorMessage(): Nothing =

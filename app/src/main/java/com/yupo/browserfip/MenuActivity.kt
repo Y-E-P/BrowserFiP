@@ -11,6 +11,7 @@ import com.yupo.browserfiplib.FiPSearchView
 class MenuActivity : AppCompatActivity() {
 
     private val binding: ActivityMenuBinding by lazy { ActivityMenuBinding.inflate(layoutInflater) }
+    private var fip: FiPSearchView? = null
 
     companion object {
         @JvmStatic
@@ -38,10 +39,10 @@ class MenuActivity : AppCompatActivity() {
 
     private fun setupSearchView(menu: Menu) {
         val searchItem = menu.findItem(R.id.action_search)
-        val root = searchItem.actionView as FiPSearchView
-        root.setupSearchComponent(binding.mainWebView)
-        root.onActionViewExpanded()
-        root.onNavigationClicked = {
+        fip = searchItem.actionView as FiPSearchView
+        fip?.setupSearchComponent(binding.mainWebView)
+        fip?.onActionViewExpanded()
+        fip?.onNavigationClicked = {
             if (it == FiPSearchView.ClickEvent.CLOSE) menu.setMenuItemsVisibility(true)
         }
     }
@@ -51,5 +52,10 @@ class MenuActivity : AppCompatActivity() {
             val item = getItem(i)
             item.isVisible = visible
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        fip?.release()
     }
 }

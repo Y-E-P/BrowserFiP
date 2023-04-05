@@ -1,22 +1,32 @@
 # BrowserFiP
 
-[ ![Download](link to lin) ](lib)
-
-![Example Gif](sample_demo.gif)
-
 An Android library that lets you extend your WebView with Search Bar like in Chrome Browser function "Find in page".
+
+<img width="50%" src="sample_demo.gif">
+
 
 # Setup
 
 First of all, include the dependency in your app build.gradle:
+Add it to your build.gradle with:
+```gradle
+allprojects {
+    repositories {
+        maven { url "https://jitpack.io" }
+    }
+}
+```
+and:
 
 ```gradle
-compile 'com.yupo.browserfiplib:browserfiplib:0.1'
+dependencies {
+    compile 'com.yupo.browserfip:browserfip:1.0'
+}
 ```
 
 ## Add View
 
-After successfully setup dependencies add FiPSearchView in your xml:
+After successfully installing dependencies add FiPSearchView in your xml:
 
 ```xml
 <com.yupo.browserfiplib.FiPSearchView
@@ -37,18 +47,21 @@ After successfully setup dependencies add FiPSearchView in your xml:
 All attributes are optional.
 
 ## Usage
-To use lib with your WebView you should pass WebView add parameter.
+
+### To use lib with your WebView you should pass WebView ass parameter.
 
 ```kotlin
 val fip : FiPSearchView = findViewById(R.id.fipSearch)
 fip.setupSearchComponent(yorWebView)
+```
+### Release resources after using FiPSearch(for example in onDestroy(Activity) or onDestroyView(Fragment))
 
- //Do stuff here
+```kotlin
+fip.release()
 ```
 
-Also there are ability to subscribe on actions, like clicking on button NEXT, PREVIOUS and CLOSE. For this add following line of code:
 
-### Kotlin
+Also there are ability to subscribe on actions, like clicking on button NEXT, PREVIOUS and CLOSE. For this add following line of code:
 
 ```kotlin
 fip.onNavigationClicked = { event->
@@ -61,7 +74,7 @@ fip.onNavigationClicked = { event->
 ```
 ## Contribute
 
-Feel free to contribute, let's make library more better.
+Feel free to contribute, let's make library more better. 
 
 ## License
 
