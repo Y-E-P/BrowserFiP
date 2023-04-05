@@ -53,7 +53,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'om.github.Y-E-P'
                 artifactId = 'BrowserFiP'
-                version = '1.0'
+                version = '1.0.1'
             }
         }
     }
