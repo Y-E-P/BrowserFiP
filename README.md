@@ -1,3 +1,4 @@
+[![](https://jitpack.io/v/Y-E-P/BrowserFiP.svg)](https://jitpack.io/#Y-E-P/BrowserFiP)
 # BrowserFiP
 
 An Android library that lets you extend your WebView with Search Bar like in Chrome Browser function "Find in page".
@@ -20,7 +21,7 @@ and:
 
 ```gradle
 dependencies {
-    compile 'com.yupo.browserfip:browserfip:1.0'
+    compile 'com.github.Y-E-P:BrowserFiP:1.0.1'
 }
 ```
 
