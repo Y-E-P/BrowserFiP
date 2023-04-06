@@ -21,7 +21,7 @@ and:
 
 ```gradle
 dependencies {
-    compile 'com.github.Y-E-P:BrowserFiP:1.0.1'
+    implementation 'com.github.Y-E-P:BrowserFiP:1.0.2'
 }
 ```
 
