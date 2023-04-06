@@ -92,7 +92,7 @@ class FiPSearchView @JvmOverloads constructor(
     }
 
     private fun initView() {
-        setBackgroundColor(getColor(R.color.fip_background_color))
+        backgroundColor?.let { setBackgroundColor(it) }
         buttonNext.setOnClickListener {
             onNavigationClicked(ClickEvent.NEXT)
             webView?.findNext(true) ?: errorMessage()
