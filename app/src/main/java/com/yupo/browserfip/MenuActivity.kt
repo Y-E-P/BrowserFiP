@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.yupo.browserfip.databinding.ActivityMenuBinding
 import com.yupo.browserfiplib.FiPSearchView
 
@@ -40,6 +41,11 @@ class MenuActivity : AppCompatActivity() {
     private fun setupSearchView(menu: Menu) {
         val searchItem = menu.findItem(R.id.action_search)
         fip = searchItem.actionView as FiPSearchView
+        fip?.setupView {
+            hint = "My Custom Hint"
+            dividerVisibility = true
+            dividerColor = ContextCompat.getColor(this@MenuActivity, R.color.purple_500)
+        }
         fip?.setupSearchComponent(binding.mainWebView)
         fip?.onActionViewExpanded()
         fip?.onNavigationClicked = {

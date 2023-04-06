@@ -2,7 +2,6 @@ package com.yupo.browserfiplib
 
 import android.content.Context
 import android.content.res.TypedArray
-import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.CollapsibleActionView
@@ -32,18 +31,20 @@ class FiPSearchView @JvmOverloads constructor(
     var onNavigationClicked: (ClickEvent) -> Unit = {}
     private lateinit var typedArray: TypedArray
     private var webView: WebView? = null
+    private lateinit var settings: Settings
 
-    private var hint: String? = null
-    private var backgroundColor: Int? = null
-    private var nextArrowIcon: Drawable? = null
-    private var previousArrowIcon: Drawable? = null
-    private var closeArrowIcon: Drawable? = null
+    data class Settings(
+        var hint: String,
+        var backgroundColor: Int,
+        var nextArrowIcon: Drawable,
+        var previousArrowIcon: Drawable,
+        var closeArrowIcon: Drawable,
+        var dividerVisibility: Boolean,
+        var dividerColor: Int,
+        var counterEmptyColor: Int,
+        var counterMatchedColor: Int
+    )
 
-    private var dividerVisibility: Boolean = true
-    private var dividerColor: Int? = null
-
-    private var counterEmptyColor: Int = Color.RED
-    private var counterMatchedColor: Int = Color.BLACK
 
     init {
         inflate(context, R.layout.fip_search_view, this)
@@ -55,44 +56,47 @@ class FiPSearchView @JvmOverloads constructor(
     private fun initAttrs(context: Context, attrs: AttributeSet?) {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.FiPSearchView)
         this.typedArray = typedArray
-        hint = typedArray.getString(R.styleable.FiPSearchView_fip_hint) ?: context.getString(R.string.fip_hint_text)
-        backgroundColor = typedArray.getColor(
-            R.styleable.FiPSearchView_fip_background_color,
-            getColor(R.color.fip_white)
-        )
-        nextArrowIcon = typedArray.getDrawableOrDefault(
-            R.styleable.FiPSearchView_fip_next_icon,
-            R.drawable.arrow_down_24
-        )
-        previousArrowIcon = typedArray.getDrawableOrDefault(
-            R.styleable.FiPSearchView_fip_previous_icon,
-            R.drawable.arrow_up_24
-        )
-        closeArrowIcon = typedArray.getDrawableOrDefault(
-            R.styleable.FiPSearchView_fip_close_icon,
-            R.drawable.ic_close
-        )
-        dividerVisibility =
-            typedArray.getBoolean(R.styleable.FiPSearchView_fip_divider_visible, true)
-        dividerColor =
+        settings = Settings(
+            hint = typedArray.getString(R.styleable.FiPSearchView_fip_hint)
+                ?: context.getString(R.string.fip_hint_text),
+            backgroundColor = typedArray.getColor(
+                R.styleable.FiPSearchView_fip_background_color,
+                getColor(R.color.fip_white)
+            ),
+            nextArrowIcon = typedArray.getDrawableOrDefault(
+                R.styleable.FiPSearchView_fip_next_icon,
+                R.drawable.arrow_down_24
+            ),
+            previousArrowIcon = typedArray.getDrawableOrDefault(
+                R.styleable.FiPSearchView_fip_previous_icon,
+                R.drawable.arrow_up_24
+            ),
+            closeArrowIcon = typedArray.getDrawableOrDefault(
+                R.styleable.FiPSearchView_fip_close_icon,
+                R.drawable.ic_close
+            ),
+            dividerVisibility =
+            typedArray.getBoolean(R.styleable.FiPSearchView_fip_divider_visible, true),
+            dividerColor =
             typedArray.getColor(
                 R.styleable.FiPSearchView_fip_divider_color,
                 getColor(R.color.fip_divider)
+            ),
+            counterEmptyColor = typedArray.getColor(
+                R.styleable.FiPSearchView_fip_counter_empty_color,
+                getColor(R.color.fip_empty_counter_color)
+            ),
+            counterMatchedColor = typedArray.getColor(
+                R.styleable.FiPSearchView_fip_counter_matched_color,
+                getColor(R.color.fip_matched_counter_color)
             )
-
-        counterEmptyColor = typedArray.getColor(
-            R.styleable.FiPSearchView_fip_counter_empty_color,
-            getColor(R.color.fip_empty_counter_color)
-        )
-        counterMatchedColor = typedArray.getColor(
-            R.styleable.FiPSearchView_fip_counter_matched_color,
-            getColor(R.color.fip_matched_counter_color)
         )
         typedArray.recycle()
     }
 
     private fun initView() {
-        backgroundColor?.let { setBackgroundColor(it) }
+        searchView.queryHint = settings.hint
+        setBackgroundColor(settings.backgroundColor)
         buttonNext.setOnClickListener {
             onNavigationClicked(ClickEvent.NEXT)
             webView?.findNext(true) ?: errorMessage()
@@ -108,12 +112,17 @@ class FiPSearchView @JvmOverloads constructor(
             onNavigationClicked(ClickEvent.CLOSE)
         }
         enableButtons(false)
-        buttonNext.setImageDrawable(nextArrowIcon)
-        buttonPrevious.setImageDrawable(previousArrowIcon)
-        buttonClose.setImageDrawable(closeArrowIcon)
+        buttonNext.setImageDrawable(settings.nextArrowIcon)
+        buttonPrevious.setImageDrawable(settings.previousArrowIcon)
+        buttonClose.setImageDrawable(settings.closeArrowIcon)
         searchView.changeColors(R.color.fip_black)
-        divider.visibility = if (dividerVisibility) View.VISIBLE else View.INVISIBLE
-        dividerColor?.let { divider.setBackgroundColor(it) }
+        divider.visibility = if (settings.dividerVisibility) View.VISIBLE else View.INVISIBLE
+        divider.setBackgroundColor(settings.dividerColor)
+    }
+
+    fun setupView(body: Settings.() -> Unit) {
+        settings = settings.copy().apply(body)
+        initView()
     }
 
     fun setupSearchComponent(webView: WebView) {
@@ -168,7 +177,7 @@ class FiPSearchView @JvmOverloads constructor(
     }
 
     private fun updateMatchesCounter(counter: Int, matchesCount: Int) {
-        countTextView.setTextColor(if (matchesCount == 0) counterEmptyColor else counterMatchedColor)
+        countTextView.setTextColor(if (matchesCount == 0) settings.counterEmptyColor else settings.counterMatchedColor)
         countTextView.text =
             String.format(context.getString(R.string.fip_counter), counter, matchesCount)
     }
