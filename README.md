@@ -55,6 +55,22 @@ All attributes are optional.
 val fip : FiPSearchView = findViewById(R.id.fipSearch)
 fip.setupSearchComponent(yorWebView)
 ```
+
+### FiP has a builder method that allowed you to customize the appearance
+
+```kotlin
+fip?.setupView {
+        hint = //your hint
+        backgroundColor = //your background color
+        nextArrowIcon = //your next arrow icon
+        previousArrowIcon = //your previous arrow icon
+        closeArrowIcon = //your close arrow icon
+        dividerVisibility = //your divider visibility state true or false
+        dividerColor = //your divider color
+        counterEmptyColor = //your couter color
+        counterMatchedColor = //your counter matched color
+}
+```
 ### Release resources after using FiPSearch(for example in onDestroy(Activity) or onDestroyView(Fragment))
 
 ```kotlin
@@ -73,6 +89,9 @@ fip.onNavigationClicked = { event->
     }
 }
 ```
+
+### Also you can check sample app code.
+
 ## Contribute
 
 Feel free to contribute, let's make library more better. 
