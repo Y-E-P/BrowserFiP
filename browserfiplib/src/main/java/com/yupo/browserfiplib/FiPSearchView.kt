@@ -55,7 +55,7 @@ class FiPSearchView @JvmOverloads constructor(
     private fun initAttrs(context: Context, attrs: AttributeSet?) {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.FiPSearchView)
         this.typedArray = typedArray
-        hint = typedArray.getString(R.styleable.FiPSearchView_fip_hint)
+        hint = typedArray.getString(R.styleable.FiPSearchView_fip_hint) ?: context.getString(R.string.fip_hint_text)
         backgroundColor = typedArray.getColor(
             R.styleable.FiPSearchView_fip_background_color,
             getColor(R.color.fip_white)
