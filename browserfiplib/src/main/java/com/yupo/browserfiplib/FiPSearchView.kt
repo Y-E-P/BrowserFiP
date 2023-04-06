@@ -161,11 +161,7 @@ class FiPSearchView @JvmOverloads constructor(
     }
 
     private fun updateMatchesCounter(counter: Int, matchesCount: Int) {
-        if (matchesCount == 0) {
-            countTextView.setTextColor(counterEmptyColor)
-        } else {
-            countTextView.setTextColor(counterMatchedColor)
-        }
+        countTextView.setTextColor(if (matchesCount == 0) counterEmptyColor else counterMatchedColor)
         countTextView.text =
             String.format(context.getString(R.string.fip_counter), counter, matchesCount)
     }
