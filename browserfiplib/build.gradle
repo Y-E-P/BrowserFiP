@@ -3,14 +3,16 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'maven-publish'
 }
-
+def libVersionName = "1.0.2"
 android {
     namespace 'com.yupo.browserfiplib'
-    compileSdk 33
+    compileSdk project.compileSdkVersion.toInteger()
 
     defaultConfig {
-        minSdk 22
-        targetSdk 33
+        minSdk project.minSdkVersion.toInteger()
+        targetSdk project.targetSdkVersion.toInteger()
+        versionCode 3
+        versionName libVersionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -51,9 +53,9 @@ afterEvaluate {
             // Creates a Maven publication called "release".
             release(MavenPublication) {
                 from components.release
-                groupId = 'om.github.Y-E-P'
-                artifactId = 'BrowserFiP'
-                version = '1.0.1'
+                groupId = 'com.yupo'
+                artifactId = 'browserfip'
+                version = libVersionName
             }
         }
     }

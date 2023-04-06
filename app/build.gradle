@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace 'com.yupo.browserfip'
-    compileSdk 33
+    compileSdk project.compileSdkVersion.toInteger()
 
     defaultConfig {
         applicationId "com.yupo.browserfip"
-        minSdk 22
-        targetSdk 33
+        minSdk project.minSdkVersion.toInteger()
+        targetSdk project.targetSdkVersion.toInteger()
         versionCode 2
         versionName "1.0.1"
 
