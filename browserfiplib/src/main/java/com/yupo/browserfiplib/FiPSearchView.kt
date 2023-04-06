@@ -14,6 +14,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
+import androidx.annotation.StyleableRes
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 
@@ -59,12 +60,18 @@ class FiPSearchView @JvmOverloads constructor(
             R.styleable.FiPSearchView_fip_background_color,
             getColor(R.color.fip_white)
         )
-        nextArrowIcon = typedArray.getDrawable(R.styleable.FiPSearchView_fip_next_icon)
-            ?: getDrawable(R.drawable.arrow_down_24)
-        previousArrowIcon = typedArray.getDrawable(R.styleable.FiPSearchView_fip_previous_icon)
-            ?: getDrawable(R.drawable.arrow_up_24)
-        closeArrowIcon = typedArray.getDrawable(R.styleable.FiPSearchView_fip_close_icon)
-            ?: getDrawable(R.drawable.ic_close)
+        nextArrowIcon = typedArray.getDrawableOrDefault(
+            R.styleable.FiPSearchView_fip_next_icon,
+            R.drawable.arrow_down_24
+        )
+        previousArrowIcon = typedArray.getDrawableOrDefault(
+            R.styleable.FiPSearchView_fip_previous_icon,
+            R.drawable.arrow_up_24
+        )
+        closeArrowIcon = typedArray.getDrawableOrDefault(
+            R.styleable.FiPSearchView_fip_close_icon,
+            R.drawable.ic_close
+        )
         dividerVisibility =
             typedArray.getBoolean(R.styleable.FiPSearchView_fip_divider_visible, true)
         dividerColor =
@@ -193,5 +200,12 @@ class FiPSearchView @JvmOverloads constructor(
 
     private fun getDrawable(@DrawableRes resId: Int) = ContextCompat.getDrawable(context, resId)
     private fun getColor(@ColorRes resId: Int) = ContextCompat.getColor(context, resId)
+
+    private fun TypedArray.getDrawableOrDefault(
+        @StyleableRes resId: Int,
+        @DrawableRes default: Int
+    ): Drawable {
+        return this.getDrawable(resId) ?: this@FiPSearchView.getDrawable(default)!!
+    }
 
 }
