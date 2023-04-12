@@ -42,7 +42,7 @@
         android:id="@+id/button_previous"
         android:layout_width="48dp"
         android:layout_height="match_parent"
-        android:background="?attr/selectableItemBackground"
+        android:background="?attr/actionBarItemBackground"
         android:contentDescription="@string/fip_description_previous"
         app:tint="@color/color_arrow_button_state"
         tools:srcCompat="@drawable/arrow_down_24" />
@@ -51,7 +51,7 @@
         android:id="@+id/button_next"
         android:layout_width="48dp"
         android:layout_height="match_parent"
-        android:background="?attr/selectableItemBackground"
+        android:background="?attr/actionBarItemBackground"
         android:contentDescription="@string/fip_description_next"
         app:tint="@color/color_arrow_button_state"
         tools:srcCompat="@drawable/arrow_up_24" />
@@ -60,7 +60,7 @@
         android:id="@+id/button_close"
         android:layout_width="48dp"
         android:layout_height="match_parent"
-        android:background="?attr/selectableItemBackground"
+        android:background="?attr/actionBarItemBackground"
         android:contentDescription="@string/fip_description_close"
         app:tint="@color/color_arrow_button_state"
         tools:srcCompat="@drawable/ic_close" />
