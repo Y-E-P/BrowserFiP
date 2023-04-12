@@ -3,7 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'maven-publish'
 }
-def libVersionName = "1.0.4"
+def libVersionName = "1.0.5"
 android {
     namespace 'com.yupo.browserfiplib'
     compileSdk project.compileSdkVersion.toInteger()
