@@ -11,11 +11,13 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StyleableRes
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 
 class FiPSearchView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
@@ -35,14 +37,15 @@ class FiPSearchView @JvmOverloads constructor(
 
     data class Settings(
         var hint: String,
-        var backgroundColor: Int,
         var nextArrowIcon: Drawable,
         var previousArrowIcon: Drawable,
         var closeArrowIcon: Drawable,
         var dividerVisibility: Boolean,
         var dividerColor: Int,
         var counterEmptyColor: Int,
-        var counterMatchedColor: Int
+        var counterMatchedColor: Int,
+        var textColor: Int,
+        var hintColor: Int
     )
 
 
@@ -59,10 +62,6 @@ class FiPSearchView @JvmOverloads constructor(
         settings = Settings(
             hint = typedArray.getString(R.styleable.FiPSearchView_fip_hint)
                 ?: context.getString(R.string.fip_hint_text),
-            backgroundColor = typedArray.getColor(
-                R.styleable.FiPSearchView_fip_background_color,
-                getColor(R.color.fip_white)
-            ),
             nextArrowIcon = typedArray.getDrawableOrDefault(
                 R.styleable.FiPSearchView_fip_next_icon,
                 R.drawable.arrow_down_24
@@ -89,6 +88,14 @@ class FiPSearchView @JvmOverloads constructor(
             counterMatchedColor = typedArray.getColor(
                 R.styleable.FiPSearchView_fip_counter_matched_color,
                 getColor(R.color.fip_matched_counter_color)
+            ),
+            hintColor = typedArray.getColor(
+                R.styleable.FiPSearchView_fip_hint_color,
+                getColor(R.color.fip_hint_color)
+            ),
+            textColor = typedArray.getColor(
+                R.styleable.FiPSearchView_fip_hint_color,
+                getColor(R.color.fip_black)
             )
         )
         typedArray.recycle()
@@ -96,7 +103,6 @@ class FiPSearchView @JvmOverloads constructor(
 
     private fun initView() {
         searchView.queryHint = settings.hint
-        setBackgroundColor(settings.backgroundColor)
         buttonNext.setOnClickListener {
             onNavigationClicked(ClickEvent.NEXT)
             webView?.findNext(true) ?: errorMessage()
@@ -115,7 +121,8 @@ class FiPSearchView @JvmOverloads constructor(
         buttonNext.setImageDrawable(settings.nextArrowIcon)
         buttonPrevious.setImageDrawable(settings.previousArrowIcon)
         buttonClose.setImageDrawable(settings.closeArrowIcon)
-        searchView.changeColors(R.color.fip_black)
+        searchView.changeHintColor(settings.hintColor)
+        searchView.changeTextColor(settings.textColor)
         divider.visibility = if (settings.dividerVisibility) View.VISIBLE else View.INVISIBLE
         divider.setBackgroundColor(settings.dividerColor)
     }
@@ -137,6 +144,10 @@ class FiPSearchView @JvmOverloads constructor(
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText.isNullOrEmpty()) {
+                    countTextView.isVisible = false
+                    clearCounter()
+                }
                 handleTextChanges(newText)
                 return false
             }
@@ -145,10 +156,8 @@ class FiPSearchView @JvmOverloads constructor(
 
     private fun handleTextChanges(newText: String?) {
         if (newText.isNullOrEmpty()) {
-            countTextView.visibility = GONE
             webView?.clearMatches()
         } else {
-            countTextView.visibility = VISIBLE
             webView?.findAllAsync(newText)
         }
     }
@@ -165,7 +174,12 @@ class FiPSearchView @JvmOverloads constructor(
     ) {
         enableButtons(numberOfMatches != 0)
         val matchesNumber = if (numberOfMatches != 0) activeMatchOrdinal + 1 else activeMatchOrdinal
-        updateMatchesCounter(matchesNumber, numberOfMatches)
+        if (isDoneCounting) {
+            updateMatchesCounter(matchesNumber, numberOfMatches)
+        } else {
+            clearCounter()
+        }
+        countTextView.isVisible = isDoneCounting
     }
 
     override fun onActionViewExpanded() {
@@ -180,6 +194,10 @@ class FiPSearchView @JvmOverloads constructor(
         countTextView.setTextColor(if (matchesCount == 0) settings.counterEmptyColor else settings.counterMatchedColor)
         countTextView.text =
             String.format(context.getString(R.string.fip_counter), counter, matchesCount)
+    }
+
+    private fun clearCounter() {
+        countTextView.text = String.format(context.getString(R.string.fip_counter), 0, 0)
     }
 
     /**
@@ -201,10 +219,14 @@ class FiPSearchView @JvmOverloads constructor(
         NEXT, PREVIOUS, CLOSE
     }
 
-    private fun SearchView.changeColors(@ColorRes color: Int) {
-        val editText = this.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
-        editText.setTextColor(getColor(color))
-        editText.setHintTextColor(getColor(color))
+    private fun SearchView.changeTextColor(@ColorInt color: Int) {
+        this.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+            .setTextColor(color)
+    }
+
+    private fun SearchView.changeHintColor(@ColorInt color: Int) {
+        this.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+            .setHintTextColor(color)
     }
 
     private fun getDrawable(@DrawableRes resId: Int) = ContextCompat.getDrawable(context, resId)

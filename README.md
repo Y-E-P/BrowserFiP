@@ -21,7 +21,7 @@ and:
 
 ```gradle
 dependencies {
-    implementation 'com.github.Y-E-P:BrowserFiP:1.0.2'
+    implementation 'com.github.Y-E-P:BrowserFiP:1.0.3'
 }
 ```
 
@@ -38,11 +38,12 @@ After successfully installing dependencies add FiPSearchView in your xml:
     app:fip_next_icon="@drawable/ic_your_icon"
     app:fip_previous_icon="@drawable/ic_your_icon"
     app:fip_close_icon="@drawable/ic_your_icon"
-    app:fip_background_color="@color/your_color"
     app:fip_divider_color="@color/your_color"
     app:fip_divider_visible="true"
     app:fip_counter_empty_color="@color/your_color"
     app:fip_counter_matched_color="@color/your_color"
+    app:fip_hint_color="@color/your_hint_color"
+    app:fip_text_color="@color/your_text_color"
 />
 ```
 All attributes are optional.
@@ -61,14 +62,15 @@ fip.setupSearchComponent(yorWebView)
 ```kotlin
 fip?.setupView {
         hint = //your hint
-        backgroundColor = //your background color
         nextArrowIcon = //your next arrow icon
         previousArrowIcon = //your previous arrow icon
         closeArrowIcon = //your close arrow icon
         dividerVisibility = //your divider visibility state true or false
         dividerColor = //your divider color
         counterEmptyColor = //your couter color
-        counterMatchedColor = //your counter matched color
+        counterMatchedColor = //your counter matched color 
+        textColor = // your text color
+        hintColor = // your hint color
 }
 ```
 ### Release resources after using FiPSearch(for example in onDestroy(Activity) or onDestroyView(Fragment))

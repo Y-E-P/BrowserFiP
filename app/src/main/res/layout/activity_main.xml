@@ -26,6 +26,7 @@
 
                 <com.yupo.browserfiplib.FiPSearchView
                     android:id="@+id/fip"
+                    android:background="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize" />
 
