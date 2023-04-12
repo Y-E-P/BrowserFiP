@@ -94,7 +94,7 @@ class FiPSearchView @JvmOverloads constructor(
                 getColor(R.color.fip_hint_color)
             ),
             textColor = typedArray.getColor(
-                R.styleable.FiPSearchView_fip_hint_color,
+                R.styleable.FiPSearchView_fip_text_color,
                 getColor(R.color.fip_black)
             )
         )
