@@ -14,7 +14,6 @@
         android:layout_gravity="center"
         android:layout_weight="1"
         android:iconifiedByDefault="false"
-        android:theme="@style/WallSearchView"
         app:closeIcon="@null"
         app:queryBackground="@android:color/transparent"
         app:queryHint="@string/fip_hint_text"

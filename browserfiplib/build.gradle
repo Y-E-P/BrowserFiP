@@ -3,7 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'maven-publish'
 }
-def libVersionName = "1.0.3"
+def libVersionName = "1.0.4"
 android {
     namespace 'com.yupo.browserfiplib'
     compileSdk project.compileSdkVersion.toInteger()
@@ -11,7 +11,7 @@ android {
     defaultConfig {
         minSdk project.minSdkVersion.toInteger()
         targetSdk project.targetSdkVersion.toInteger()
-        versionCode 4
+        versionCode 5
         versionName libVersionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
