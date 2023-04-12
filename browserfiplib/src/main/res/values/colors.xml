@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="fip_black">#FF000000</color>
+    <color name="fip_hint_color">#BDBDBD</color>
     <color name="fip_active_color">#FF000000</color>
+    <color name="fip_active_selected">#63000000</color>
     <color name="fip_inactive_color">#BDBDBD</color>
     <color name="fip_background_color">#FFFFFFFF</color>
     <color name="fip_divider">#BDBDBD</color>
